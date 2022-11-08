@@ -3,24 +3,19 @@ import {Typography, AppBar, Card, CardActions, CardContent, CardMedia, CssBaseli
 import {TwoWheelerRounded} from "@material-ui/icons";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles ((theme) => ({
-  container: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6)
-  }
-}));
+import useStyles from './styles';
 
 const App = () => {
     const classes = useStyles();
+    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     return (
       <>
         <CssBaseline />
         <AppBar position="relative">
           <Toolbar>
-            <TwoWheelerRounded />
+            <TwoWheelerRounded className={classes.icon} />
             <Typography varient="h6">Motorcyclepedia</Typography>
           </Toolbar>
         </AppBar>
@@ -45,7 +40,7 @@ const App = () => {
                 {" "}
                 Currently available articles.
               </Typography>
-              <div>
+              <div className={classes.buttons}>
                 <Grid container spacing={2} justify="center">
                   <Grid item>
                     <Button variant="contained" color="primary">
@@ -56,7 +51,45 @@ const App = () => {
               </div>
             </Container>
           </div>
+          <Container className={classes.cardGrid} maxWidth="md">
+            <Grid container spacing={4}>
+              {cards.map((card) => (
+                <Grid item key={card} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image="https://source.unsplash.com/random"
+                      title="image"
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5">
+                        Heading
+                      </Typography>
+                      <Typography>Description</Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        View
+                      </Button>
+                      <Button size="small" color="primary">
+                        Favorite
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
         </main>
+        <footer className={classes.footer}>
+          <Typography variant="h6" align="center" gutterBottom>
+            Footer
+          </Typography>
+          <Typography variant="subtitle1" align="center" color="textSecondary">
+            Conor Casey
+          </Typography>
+        </footer>
+
       </>
     );
 }
