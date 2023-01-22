@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import  {useState, useEffect} from "react";
+
 import {
   Typography,
   Card,
@@ -8,6 +9,7 @@ import {
   CardMedia,
   CssBaseline,
   Grid,
+  Toolbar,
   Container,
 } from "@material-ui/core";
 
@@ -27,8 +29,28 @@ const HomePage = () => {
 	const [response, setResponse] = useState();
   const [post, setPost] = React.useState();
 
+ 	const fetchQuotes = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.api-ninjas.com/v1/motorcycles?make=kawasaki&model=ninja`,
+        {
+          headers: { "X-Api-Key": "GwWPrm4fdIwHjeghonki+Q==Nx6g1uPzf6AdtWbS" },
+          params: { category: "all", count: "1" },
+        }
+      );
+      setResponse(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  	useEffect(() => {
+      // Trigger the API Call
+    fetchQuotes()
+    }, []);
 
 
+console.log("this is", response)
 
 
   return (
@@ -69,8 +91,8 @@ const HomePage = () => {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {response.map((motorcycle) => (
+              <Grid item key={motorcycle} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -79,7 +101,7 @@ const HomePage = () => {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5">
-                      {response?.name}
+                      {motorcycle?.model}
                     </Typography>
                     <Typography>Description</Typography>
                   </CardContent>
