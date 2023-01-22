@@ -11,6 +11,7 @@ import {
   Grid,
   Toolbar,
   Container,
+  TextField
 } from "@material-ui/core";
 
 import axios from "axios";
@@ -26,13 +27,13 @@ import NavBarComponent from "../../components/navBar/NavBarComponent";
 const HomePage = () => {
   const classes = useStyles();
   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-	const [response, setResponse] = useState();
+	const [response, setResponse] = useState([]);
   const [post, setPost] = React.useState();
 
  	const fetchQuotes = async () => {
     try {
       const res = await axios.get(
-        `https://api.api-ninjas.com/v1/motorcycles?make=kawasaki&model=ninja`,
+        `https://api.api-ninjas.com/v1/motorcycles?make=yamaha&model=mt`,
         {
           headers: { "X-Api-Key": "GwWPrm4fdIwHjeghonki+Q==Nx6g1uPzf6AdtWbS" },
           params: { category: "all", count: "1" },
@@ -82,10 +83,16 @@ console.log("this is", response)
               <Grid container spacing={2} justify="center">
                 <Grid item>
                   <Button variant="contained" color="primary">
+                    Manufacturer
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" color="primary">
                     Categories
                   </Button>
                 </Grid>
               </Grid>
+              
             </div>
           </Container>
         </div>

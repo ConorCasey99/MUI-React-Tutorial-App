@@ -10,6 +10,7 @@ import {
   Grid,
   Toolbar,
   Container,
+  TextField
 } from "@material-ui/core";
 import { TwoWheelerRounded } from "@material-ui/icons";
 import Button from "@mui/material/Button";
@@ -27,6 +28,16 @@ const NavBarComponent = () => {
         <Toolbar>
           <TwoWheelerRounded className={classes.icon} />
           <Typography varient="h6">Motorcyclepedia</Typography>
+          <TextField
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            className={classes.searchBar}
+            color="success"
+          />
+          <Button variant="contained" color="primary" className={classes.searchbutton}>
+            Search
+          </Button>
         </Toolbar>
       </AppBar>
     </>
