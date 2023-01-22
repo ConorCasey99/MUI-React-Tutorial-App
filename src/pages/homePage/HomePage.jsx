@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState, useEffect } from 'react';
 import {
   Typography,
   Card,
@@ -8,20 +8,28 @@ import {
   CardMedia,
   CssBaseline,
   Grid,
-  Toolbar,
   Container,
 } from "@material-ui/core";
+
+import axios from "axios";
 
 import Button from "@mui/material/Button";
 
 import useStyles from "./homePageStyle";
 
-import FooterComponent from "../components/footer/FooterComponent";
-import NavBarComponent from "../components/navBar/NavBarComponent";
+import FooterComponent from "../../components/footer/FooterComponent";
+import NavBarComponent from "../../components/navBar/NavBarComponent";
+
 
 const HomePage = () => {
   const classes = useStyles();
   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+	const [response, setResponse] = useState();
+  const [post, setPost] = React.useState();
+
+
+
+
 
   return (
     <>
@@ -71,7 +79,7 @@ const HomePage = () => {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5">
-                      Heading
+                      {response?.name}
                     </Typography>
                     <Typography>Description</Typography>
                   </CardContent>
