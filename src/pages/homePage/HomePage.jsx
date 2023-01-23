@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import  {useState, useEffect} from "react";
 
 import {
@@ -11,17 +11,22 @@ import {
   Grid,
   Toolbar,
   Container,
-  TextField
+  TextField,
+  InputLabel,
+  MenuItem
 } from "@material-ui/core";
+
+import Box from "@mui/material/Box";
 
 import axios from "axios";
 
 import Button from "@mui/material/Button";
-
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import useStyles from "./homePageStyle";
-
+import FormControl from '@mui/material/FormControl';
 import FooterComponent from "../../components/footer/FooterComponent";
 import NavBarComponent from "../../components/navBar/NavBarComponent";
+import { Refresh } from "@material-ui/icons";
 
 
 const HomePage = () => {
@@ -29,11 +34,12 @@ const HomePage = () => {
   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	const [response, setResponse] = useState([]);
   const [post, setPost] = React.useState();
+  const [manufacturer, setManufacturer] = React.useState("");
 
  	const fetchQuotes = async () => {
     try {
       const res = await axios.get(
-        `https://api.api-ninjas.com/v1/motorcycles?make=yamaha&model=mt`,
+        `https://api.api-ninjas.com/v1/motorcycles?make=${manufacturer}`,
         {
           headers: { "X-Api-Key": "GwWPrm4fdIwHjeghonki+Q==Nx6g1uPzf6AdtWbS" },
           params: { category: "all", count: "1" },
@@ -44,6 +50,12 @@ const HomePage = () => {
       console.log(err);
     }
   };
+
+  const handleChange = (event) => {
+    setManufacturer(event.target.value);
+    fetchQuotes()
+  };
+
 
   	useEffect(() => {
       // Trigger the API Call
@@ -68,7 +80,7 @@ console.log("this is", response)
               gutterBottom
             >
               {" "}
-              Current Entries
+              Motorcycle's
             </Typography>
             <Typography
               varient="h5"
@@ -92,8 +104,22 @@ console.log("this is", response)
                   </Button>
                 </Grid>
               </Grid>
-              
             </div>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Manufacturer</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={manufacturer}
+                label="manufacturer"
+                onChange={handleChange}
+              >
+                <MenuItem value={"honda"}>Honda</MenuItem>
+                <MenuItem value={"yamaha"}>Yamaha</MenuItem>
+                <MenuItem value={"suzuki"}>Suzuki</MenuItem>
+                <MenuItem value={"ducati"}>Ducati</MenuItem>
+              </Select>
+            </FormControl>
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
