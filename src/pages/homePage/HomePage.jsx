@@ -34,7 +34,7 @@ const HomePage = () => {
   const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	const [response, setResponse] = useState([]);
   const [post, setPost] = React.useState();
-  const [manufacturer, setManufacturer] = React.useState("");
+  const [manufacturer, setManufacturer] = React.useState();
 
  	const fetchQuotes = async () => {
     try {
